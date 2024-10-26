@@ -3,10 +3,9 @@ import { useState, useEffect } from 'react';
 function AddMarker( ) {
   return (
     <>
-    <button>
-      {/* TODO: Button allows user to add marker to the Map. */}
+      {/* TODO: Button in SideBar calls AddMarker and allows user to add marker to the Map. */}
       {/* Upon marker creation: user can input information about the incident. */}
-    </button>
+      {/* Current challenge: Connecting user input to a marker. */}
     </>
   )
 };
