@@ -4,7 +4,7 @@ function SideBar() {
   return (
     <>
       <div className="w-1/5 h-3/4 bg-white flex flex-col m-16 rounded-lg p-4">
-        <button>
+        <button className="hover:bg-blue-600 transition-colors">
         {/* Button should open AddMarker component for user to input a new marker. */}
         Add Marker
         </button>
