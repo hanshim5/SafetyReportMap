@@ -5,7 +5,7 @@ import {
   MarkerF,
   useLoadScript,
 } from "@react-google-maps/api";
-
+import SideBar from "./components/SideBar";
 import "./App.css";
 
 const markers = [
@@ -43,15 +43,17 @@ function App() {
 
   return (
     <Fragment>
-      <div className="container">
-        <h1 className="text-center">Vite + React | Google Map Markers</h1>
-        <div style={{ height: "50vh", width: "100%" }}>
+      <div className="container flex w-full max-h-screen items-center">
+        <SideBar />
+        <div className="container w-full">
+        <h1 className="text-center w-full p-4">Map of Safety Report Markers</h1>
+        <div style={{ width: "100%" }}>
           {isLoaded ? (
             <GoogleMap
               center={{ lat: 33.7869, lng: -118.1130 }}
               zoom={10}
               onClick={() => setActiveMarker(null)}
-              mapContainerStyle={{ width: "100%", height: "90vh" }}
+              mapContainerStyle={{ width: "100%", height: "85vh" }}
             >
               {markers.map(({ id, name, position }) => (
                 <MarkerF
@@ -71,6 +73,7 @@ function App() {
               ))}
             </GoogleMap>
           ) : null}
+        </div>
         </div>
       </div>
     </Fragment>
