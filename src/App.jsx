@@ -7,6 +7,7 @@ import {
 } from "@react-google-maps/api";
 import SideBar from "./components/SideBar";
 import "./App.css";
+const API_KEY=import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 
 const markers = [
   {
@@ -29,7 +30,7 @@ const markers = [
 
 function App() {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_MAP_API_KEY,
+    googleMapsApiKey: API_KEY,
   });
 
   const [activeMarker, setActiveMarker] = useState(null);
