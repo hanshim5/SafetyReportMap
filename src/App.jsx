@@ -88,12 +88,6 @@ function App() {
       setDescription("");
     }
   };
-
-    // Activates InfoWindow for a specific marker
-    const handleActiveMarker = (markerId) => {
-      if (markerId === activeMarker) return; // Prevents reopening an already active InfoWindow
-      setActiveMarker(markerId);
-    };
   
     // Toggles the mode to allow adding a new marker
     const toggleAddMarkerMode = () => {
@@ -121,9 +115,7 @@ function App() {
         incidentList={markers}
         onIncidentClick={handleIncidentClick}/>
         <div style={{ width: "100%", height: "100vh" }}>
-        {/* <h1 className="text-center text-4xl pb-8">Map of Safety Report Markers</h1> */}
-        {/* <img src={SafetyShark} className="inline-block pb-4 h-24"/> */}
-          {isLoaded ? (
+            {isLoaded ? (
             <GoogleMap
             center={pos}
             zoom={10}
@@ -140,12 +132,16 @@ function App() {
                   { selectedMarker && (
                     <InfoWindowF 
                     position={selectedMarker.position}
-                    onCloseClick={() => setActiveMarker(null)}>
+                    onCloseClick={() => setActiveMarker(null)}
+                    >
                       <div className="text-black text-left">
                         <h3 className="font-bold">{selectedMarker.name}</h3>
                         <p>{selectedMarker.description}</p>
                         <p>Posted Date: {selectedMarker.date}</p>
                         <p>Posted Time: {selectedMarker.time}</p>
+                        {/* Display latitude and longitude */}
+                        <p>Latitude: {selectedMarker.position.lat.toFixed(6)}</p>
+                        <p>Longitude: {selectedMarker.position.lng.toFixed(6)}</p>
                       </div>
                     </InfoWindowF>
                   )}
