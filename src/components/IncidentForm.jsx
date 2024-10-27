@@ -22,14 +22,14 @@ function IncidentForm({newMarker, setTitle, setDescription, handleSave}) {
         <input type='text'
           placeholder="Enter incident title"
           onChange={setTitle}
-          className="text-black bg-white"/>
+          className="text-black bg-slate-100 w-full p-2"/>
         <hr/>
         <label className='text-black'>
           Description 
           <textarea name="postContent" 
-            placeholder="Enter description"
+            placeholder="Enter time of incident, details about the perperator, and what happened."
             onChange={setDescription}
-            className="text-black bg-white"/>
+            className="text-black bg-slate-100 w-full h-1/4 p-2"/>
         </label>
         <button title='Submit' className='text-black bg-blue-200'type="submit">
           Submit
