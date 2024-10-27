@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
+import { AddMarker } from './AddMarker';
 
-function SideBar() {
+function SideBar( {handleAddMarker} ) {
+  
   return (
     <>
       <div className="w-1/4 h-3/4 bg-white flex flex-col m-16 rounded-lg p-4">
-        <button className="hover:bg-blue-600 transition-colors text-2xl">
-        {/* Button should open AddMarker component for user to input a new marker. */}
+        {/* <button className="hover:bg-blue-600 transition-colors text-2xl"
+        onClick={handleAddMarker}>
+          // Button should open AddMarker component for user to input a new marker.
         Add Marker
-        </button>
+        </button> */}
+        <AddMarker onAddMarker = {handleAddMarker} />
         <div className="text-black text-xl text-left bg-slate-200 m-4 p-4 rounded-lg">
           {/* Display details for a marker, if selected. Otherwise, inform user to select a marker to view details. */}
           {/* May have to pass in details component. */}

@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-function AddMarker( ) {
+export function AddMarker({ onAddMarker }) {
+  // AddMarker takes an onAddMarker function prop that App will provide.
   return (
-    <>
-      {/* TODO: Button in SideBar calls AddMarker and allows user to add marker to the Map. */}
-      {/* Upon marker creation: user can input information about the incident. */}
-      {/* Current challenge: Connecting user input to a marker. */}
-    </>
-  )
-};
+    <button onClick={onAddMarker} className="add-marker-button">
+      Add Marker Mode
+    </button>
+  );
+}
