@@ -12,6 +12,7 @@ import { AddMarker } from "./components/AddMarker"; // Notice the uppercase and 
 import "./App.css";
 import SideBar from "./components/SideBar";
 import IncidentForm from "./components/IncidentForm";
+import FormTutorial from "./components/FormTutorial";
 
 
 const initialMarkers = [
@@ -68,7 +69,7 @@ function App() {
           position: newMarker.position,
         },
       ]);
-      steelmaker(null); // Reset new marker state after saving
+      setNewMarker((newMarker) => null); // Reset new marker state after saving
       setTitle("");
       setDescription("");
     }
@@ -117,8 +118,8 @@ function App() {
                 >
                   {activeMarker === id ? (
                     <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-                      <div className="text-black">
-                        <h3>{name}</h3>
+                      <div className="text-black text-left">
+                        <h3 className="font-bold">{name}</h3>
                         <p>{description}</p>
                       </div>
                     </InfoWindowF>
@@ -128,11 +129,18 @@ function App() {
             </GoogleMap>
           ) : null}
         </div>
-        <IncidentForm 
+        { newMarker ? (
+          <IncidentForm 
           newMarker={newMarker == null}
+          setNewMarker={() => (setNewMarker(null))}
           setTitle={addTitle}
           setDescription={addDesc}
-          handleSave={handleSaveMarker}/>
+          handleSave={handleSaveMarker}/>) :
+          (
+            <FormTutorial />
+          )
+        }
+
         </div>
       </div>
     </Fragment>
