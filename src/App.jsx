@@ -11,7 +11,7 @@ import "./App.css";
 import SideBar from "./components/SideBar";
 import IncidentForm from "./components/IncidentForm";
 import FormTutorial from "./components/FormTutorial";
-import SafetyShark from "./assets/SafetyShark.png"
+import SafetyShark from "./assets/SafetyShark.png";
 
 
 const initialMarkers = [
@@ -32,7 +32,7 @@ const initialMarkers = [
 
   {
     id: 3,
-    name: "ditto",
+    name: "Horn Center",
     position: { lat: 33.78338772161907, lng: -118.1140407489438 },
     date: "2024-10-26",
     time: "11:00 AM",
@@ -123,14 +123,14 @@ function App() {
 
   return (
     <Fragment>
-      <div className="container max-w-full">
+      <div className="container max-w-screen max-h-screen">
         <div className="flex items-center justify-center">
         <SideBar handleAddMarker={toggleAddMarkerMode} 
         addMarkerMode={addMarkerMode} 
         incidentList={markers}/>
-        <div style={{ width: "100%" }}>
+        <div style={{ width: "100%", height: "100vh" }}>
         {/* <h1 className="text-center text-4xl pb-8">Map of Safety Report Markers</h1> */}
-        <img src={SafetyShark} className="inline-block pb-4 h-24"/>
+        {/* <img src={SafetyShark} className="inline-block pb-4 h-24"/> */}
           {isLoaded ? (
             <GoogleMap
             center={pos}
@@ -138,7 +138,7 @@ function App() {
             onLoad={onLoad}
             onDragEnd={handleCenter}
             onClick={handleMapClick}
-            mapContainerStyle={{ width: "100%", height: "80vh" }}
+            mapContainerStyle={{ width: "100%", height: "100vh" }}
             >
               {markers.map(({ id, name, description, position, date, time }) => (
                 <MarkerF
@@ -162,6 +162,7 @@ function App() {
             </GoogleMap>
           ) : null}
         </div>
+        <div className="max-h-full fixed">
         { newMarker ? (
           <IncidentForm 
           newMarker={newMarker == null}
@@ -173,6 +174,8 @@ function App() {
             <FormTutorial />
               )
             }
+        </div>
+
         </div>
       </div>
     </Fragment>

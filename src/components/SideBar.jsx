@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { AddMarker } from './AddMarker';
+import SafetyShark from "../assets/SafetyShark.png";
 
 function SideBar( {handleAddMarker, addMarkerMode, incidentList} ) {
 
   return (
     <>
-      <div className="w-1/4 h-3/4 bg-white flex flex-col m-16 rounded-lg p-4">
+      <div className="w-1/4 h-3/4 flex flex-col rounded-lg p-8">
 
+        <img src={SafetyShark} className="inline-block pb-8"/>
         <AddMarker onAddMarker = {handleAddMarker} addMarkerMode={addMarkerMode}/>
         <div className="text-left bg-slate-200 my-4 p-2 rounded-lg">
           <h2 className="text-black text-xl font-bold text-center">Recent Alerts</h2>
