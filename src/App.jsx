@@ -124,7 +124,9 @@ function App() {
     <Fragment>
       <div className="container max-w-full">
         <div className="flex items-center justify-center">
-        <SideBar handleAddMarker={toggleAddMarkerMode} addMarkerMode={addMarkerMode} incidentList={Array.from(markers)}/>
+        <SideBar handleAddMarker={toggleAddMarkerMode} 
+        addMarkerMode={addMarkerMode} 
+        incidentList={markers}/>
         <div style={{ width: "100%" }}>
         <h1 className="text-center text-4xl pb-8">Map of Safety Report Markers</h1>
           {isLoaded ? (

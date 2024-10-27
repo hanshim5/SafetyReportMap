@@ -10,8 +10,16 @@ function SideBar( {handleAddMarker, addMarkerMode, incidentList} ) {
         <AddMarker onAddMarker = {handleAddMarker} addMarkerMode={addMarkerMode}/>
         <div className="text-left bg-slate-200 my-4 p-2 rounded-lg">
           <h2 className="text-black text-xl font-bold text-center">Recent Alerts</h2>
-          { incidentList ? (<div>yes</div>) :
-            (<p className="text-gray-500">Recent incidents will show up here.</p>)
+          { incidentList.map(({name, description, time, date}) => {
+              (
+                <div className="bg-slate-100">
+                  <h1 className="font-bold">{name}</h1>
+                  <p>{description}</p>
+                  <p>Posted: {time} {date}</p>
+                </div>
+              )
+            }
+            )
           }
           
         </div>
