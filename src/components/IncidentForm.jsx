@@ -5,7 +5,10 @@ function IncidentForm({setTitle, setDescription, setImage, handleSave}) {
     <>
 
       <div className="fixed w-72 bg-[#3A3431] flex flex-col rounded-lg p-4 right-16 top-24">   
-      <form onSubmit={handleSave}>
+      <form onSubmit={(e) => {
+          e.preventDefault();
+          handleSave(e);
+        }}>
         <h1 className='text-xl font-bold heading'>
           Report Incident
         </h1>
