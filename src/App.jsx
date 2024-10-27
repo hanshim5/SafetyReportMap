@@ -11,6 +11,7 @@ import "./App.css";
 import SideBar from "./components/SideBar";
 import IncidentForm from "./components/IncidentForm";
 import FormTutorial from "./components/FormTutorial";
+import SafetyShark from "./assets/SafetyShark.png"
 
 
 const initialMarkers = [
@@ -128,7 +129,8 @@ function App() {
         addMarkerMode={addMarkerMode} 
         incidentList={markers}/>
         <div style={{ width: "100%" }}>
-        <h1 className="text-center text-4xl pb-8">Map of Safety Report Markers</h1>
+        {/* <h1 className="text-center text-4xl pb-8">Map of Safety Report Markers</h1> */}
+        <img src={SafetyShark} className="inline-block pb-4 h-24"/>
           {isLoaded ? (
             <GoogleMap
             center={pos}
