@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useRef } from "react";
 import {
   GoogleMap,
   InfoWindowF,
@@ -7,8 +7,6 @@ import {
 } from "@react-google-maps/api";
 
 const API_KEY=import.meta.env.VITE_GOOGLE_MAP_API_KEY;
-
-import { AddMarker } from "./components/AddMarker"; // Notice the uppercase and corrected quotes
 import "./App.css";
 import SideBar from "./components/SideBar";
 import IncidentForm from "./components/IncidentForm";
@@ -52,6 +50,19 @@ function App() {
   // states for Marker information
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+
+  // handling map on init load
+  const mapsRef = useRef(null);
+  const [pos, setPos] = useState({ lat: 33.7869, lng: -118.1130 })
+  function onLoad(map) { 
+    mapsRef.current = map;
+  }
+
+  function handleCenter() {
+    if (!mapsRef.current) return;
+    const newPosition = mapsRef.current.getCenter().toJSON();
+    setPos(newPosition);
+  }
 
 
   // Handles map clicks to set a new marker's position
@@ -113,13 +124,15 @@ function App() {
     <Fragment>
       <div className="container max-w-full">
         <div className="flex items-center justify-center">
-        <SideBar handleAddMarker={toggleAddMarkerMode} addMarkerMode={addMarkerMode}/>
+        <SideBar handleAddMarker={toggleAddMarkerMode} addMarkerMode={addMarkerMode} incidentList={Array.from(markers)}/>
         <div style={{ width: "100%" }}>
         <h1 className="text-center text-4xl pb-8">Map of Safety Report Markers</h1>
           {isLoaded ? (
             <GoogleMap
-            center={{ lat: 33.7869, lng: -118.1130 }}
+            center={pos}
             zoom={10}
+            onLoad={onLoad}
+            onDragEnd={handleCenter}
             onClick={handleMapClick}
             mapContainerStyle={{ width: "100%", height: "80vh" }}
             >
