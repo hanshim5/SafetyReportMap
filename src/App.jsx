@@ -42,6 +42,9 @@ function App() {
   const [activeMarker, setActiveMarker] = useState(null);
   const [addMarkerMode, setAddMarkerMode] = useState(false);
 
+  const [incidentName, setIncidentName] = useState('');
+  const [incidentDescription, setIncidentDescription] = useState('');
+
   const handleActiveMarker = (markerId) => {
     if (markerId === activeMarker) {
       return;
@@ -70,15 +73,15 @@ function App() {
       <div className="container max-w-full">
         <div className="flex items-center justify-center">
 
-        <SideBar handleAddMarker={toggleAddMarkerMode}/>
+        <SideBar handleAddMarker={toggleAddMarkerMode} addMarkerMode={addMarkerMode}/>
         <div style={{ width: "100%" }}>
-        <h1 className="text-center p-4">Map of Safety Report Markers</h1>
+        <h1 className="text-center text-4xl pb-8">Map of Safety Report Markers</h1>
           {isLoaded ? (
             <GoogleMap
             center={{ lat: 33.7869, lng: -118.1130 }}
             zoom={10}
             onClick={handleMapClick}
-            mapContainerStyle={{ width: "100%", height: "90vh" }}
+            mapContainerStyle={{ width: "100%", height: "80vh" }}
             >
               {markers.map(({ id, name, position }) => (
                 <MarkerF

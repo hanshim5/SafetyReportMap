@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AddMarker } from './AddMarker';
 
-function SideBar( {handleAddMarker} ) {
+function SideBar( {handleAddMarker, addMarkerMode} ) {
   
   return (
     <>
@@ -11,7 +11,7 @@ function SideBar( {handleAddMarker} ) {
           // Button should open AddMarker component for user to input a new marker.
         Add Marker
         </button> */}
-        <AddMarker onAddMarker = {handleAddMarker} />
+        <AddMarker onAddMarker = {handleAddMarker} addMarkerMode={addMarkerMode}/>
         <div className="text-black text-xl text-left bg-slate-200 m-4 p-4 rounded-lg">
           {/* Display details for a marker, if selected. Otherwise, inform user to select a marker to view details. */}
           {/* May have to pass in details component. */}
