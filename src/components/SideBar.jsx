@@ -9,9 +9,12 @@ function SideBar( {handleAddMarker, addMarkerMode, incidentList, onIncidentClick
       <div className="w-1/4 h-3/4 flex flex-col rounded-lg p-8">
         <img src={MarkerLogo} className="w-14 self-center inline-block pb-8"/>
         <img src={SafetyShark} className="inline-block pb-8"/>
+        {/* addMarker toggles "addMarkerMode" which enables user to view and edit an input form for a new marker. */}
         <AddMarker onAddMarker = {handleAddMarker} addMarkerMode={addMarkerMode}/>
         <div className="text-left bg-white bg-opacity-10 my-4 max-h-64 overflow-auto no-scrollbar p-2 rounded-lg">
           <h2 className="text-xl font-bold text-center">Recent Alerts</h2>
+          {/* List displaying alerts that are currently on the map. */}
+          {/* List content is scrollable, without a scrollbar for clean visuals. */}
           { incidentList ? (
             incidentList.map((incident) =>
               (
@@ -25,6 +28,7 @@ function SideBar( {handleAddMarker, addMarkerMode, incidentList, onIncidentClick
               )
             )
           ) :
+          // If there are no incidents, this message appears to the user.
             (<p className="text-gray-500">Recent incidents will show up here.</p>)
           }
 

@@ -1,3 +1,4 @@
+// Button used to toggle addMarkerMode for users
 export function AddMarker({ onAddMarker, addMarkerMode }) {
   return (
     <button

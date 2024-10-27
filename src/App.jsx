@@ -6,7 +6,7 @@ import {
   useLoadScript,
 } from "@react-google-maps/api";
 
-const API_KEY=import.meta.env.VITE_GOOGLE_MAP_API_KEY;
+const API_KEY=import.meta.env.VITE_GOOGLE_MAP_API_KEY; // secure usage of API key
 import "./App.css";
 import SideBar from "./components/SideBar";
 import IncidentForm from "./components/IncidentForm";
@@ -40,9 +40,9 @@ function App() {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
 
-  // handling map on init load
+  // handling map appearance on init load
   const mapsRef = useRef(null);
-  const [pos, setPos] = useState({ lat: 33.7869, lng: -118.1130 })
+  const [pos, setPos] = useState({ lat: 33.7869, lng: -118.1130 }) // inits with CSULB at the center.
   function onLoad(map) { 
     mapsRef.current = map;
   }
@@ -96,6 +96,7 @@ function App() {
       setAddMarkerMode((prevMode) => !prevMode);
     };
 
+    // add___ functions used to pass state values between app.jsx (parent) and incidentform (child)
     const addTitle = (e) => {
       setTitle(e.target.value);
     };
@@ -108,6 +109,7 @@ function App() {
       setImage(e.target.files[0]);
     }
 
+    // handling when incident information is displayed to the user
     const handleIncidentClick = (incident) => {
       setSelectedMarker(incident);
     };
@@ -116,12 +118,13 @@ function App() {
     <Fragment>
       <div className="container max-w-screen max-h-screen">
         <div className="flex items-center justify-center">
+          {/* Passing hooks between Sidebar and App components */}
         <SideBar handleAddMarker={toggleAddMarkerMode} 
         addMarkerMode={addMarkerMode} 
         incidentList={markers}
         onIncidentClick={handleIncidentClick}/>
         <div style={{ width: "100%", height: "100vh" }}>
-            {isLoaded ? (
+            {isLoaded ? ( // on proper loading, googlemap is displayed
             <GoogleMap
             center={pos}
             zoom={10}
@@ -135,6 +138,7 @@ function App() {
                 key={id}
                 position={position}
                 onClick={() => handleIncidentClick({ id, name, description, date, time, position, image })}/>))}
+                {/* Displays info window upon selecting an existing marker on the map. */}
                   { selectedMarker && (
                     <InfoWindowF 
                     position={selectedMarker.position}
@@ -159,6 +163,7 @@ function App() {
           ) : null}
         </div>
         <div className="max-h-full fixed transition-transform">
+          {/* Based on newMarker condition, switches between instructions for the user, and the input form for markers. */}
         { newMarker ? (
           <IncidentForm 
           newMarker={newMarker == null}

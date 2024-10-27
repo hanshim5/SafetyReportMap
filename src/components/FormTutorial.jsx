@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+// based on condition set in App.jsx, FormTutorial renders when the user is not currently creating a new marker.
 
 function FormTutorial({}) {
   return (
