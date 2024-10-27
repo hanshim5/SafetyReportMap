@@ -25,7 +25,7 @@ function SideBar( {handleAddMarker} ) {
           {/* police escort service */}
           <h2 className="">Request a Safety Escort: <a href="tel:5629854101">562.985.4101</a></h2>
           {/* anonymous tip line */}
-          <a href="https://www.csulb.edu/university-police/form/submit-an-anonymous-crime-tip">Report Crime Tip (Anonymous)</a>
+          <a href="https://www.csulb.edu/university-police/form/submit-an-anonymous-crime-tip" target="_blank">Report Crime Tip (Anonymous)</a>
         </div>
       </div>
     </>

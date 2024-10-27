@@ -89,7 +89,7 @@ function App() {
                 >
                   {activeMarker === id ? (
                     <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-                      <div>
+                      <div className="text-black">
                         <p>{name}</p>
                       </div>
                     </InfoWindowF>

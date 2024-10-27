@@ -18,7 +18,7 @@ function IncidentForm() {
         <label className='text-black'>
           Description <textarea name="postContent" className="text-black bg-white"/>
         </label>
-        <button title='Submit' className='text-black bg-white border-solid border-2'type="submit">
+        <button title='Submit' className='text-black bg-blue-200'type="submit">
           Submit
         </button>
       </form> 
