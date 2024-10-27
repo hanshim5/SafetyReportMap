@@ -6,7 +6,7 @@ import {
   useLoadScript,
 } from "@react-google-maps/api";
 
-//const API_KEY=import.meta.env.VITE_GOOGLE_MAP_API_KEY;
+const API_KEY=import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 
 import { AddMarker } from "./components/AddMarker"; // Notice the uppercase and corrected quotes
 import "./App.css";
@@ -35,38 +35,63 @@ const initialMarkers = [
 
 function App() {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyD1Om8PUMaFrWZSE1MLsWF6Hl6rm8-yD_U"//API_KEY,
+    googleMapsApiKey: API_KEY,
   });
 
-  const [markers, setMarkers] = useState(initialMarkers);
-  const [activeMarker, setActiveMarker] = useState(null);
-  const [addMarkerMode, setAddMarkerMode] = useState(false);
+  const [markers, setMarkers] = useState(initialMarkers); // used to manage markers + add new ones
+  const [activeMarker, setActiveMarker] = useState(null); // tracking active marker for showing infoWindow
+  const [addMarkerMode, setAddMarkerMode] = useState(false); // control add marker mode
+  const [newMarker, setNewMarker] = useState(null); // Stores new marker position before saving
+  // states for Marker information
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
-  const [incidentName, setIncidentName] = useState('');
-  const [incidentDescription, setIncidentDescription] = useState('');
-
-  const handleActiveMarker = (markerId) => {
-    if (markerId === activeMarker) {
-      return;
-    }
-    setActiveMarker(markerId);
+  // Handles map clicks to set a new marker's position
+  const handleMapClick = (event) => {
+    if (!addMarkerMode) return; // Only add marker when in 'add marker' mode
+    setNewMarker({
+      position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
+    });
+    setAddMarkerMode(false); // Exit 'add marker' mode after selecting position
   };
 
-  const handleMapClick = (event) => {
-    if (!addMarkerMode) return; // Only add marker if addMarkerMode is enabled
+  // Saves the new marker with title and description inputs
+  const handleSaveMarker = (e) => {
+    if (newMarker && title && description) {
+      e.preventDefault();
+      setMarkers((prevMarkers) => [
+        ...prevMarkers,
+        {
+          id: prevMarkers.length + 1,
+          name: title,
+          description: description,
+          position: newMarker.position,
+        },
+      ]);
+      steelmaker(null); // Reset new marker state after saving
+      setTitle("");
+      setDescription("");
+    }
+  };
 
-    const newMarker = {
-      id: markers.length + 1, // Unique ID for the marker
-      name: 'Marker ${markers.length + 1}', // Default name; you can prompt user for custom name
-      position: { lat: event.latLng.lat(), lng: event.latLng.lng() },
+    // Activates InfoWindow for a specific marker
+    const handleActiveMarker = (markerId) => {
+      if (markerId === activeMarker) return; // Prevents reopening an already active InfoWindow
+      setActiveMarker(markerId);
     };
-    setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
-    setAddMarkerMode(false);
-    };
-
+  
+    // Toggles the mode to allow adding a new marker
     const toggleAddMarkerMode = () => {
       setAddMarkerMode((prevMode) => !prevMode);
     };
+
+    const addTitle = (e) => {
+      setTitle(e.target.value);
+    };
+
+    const addDesc = (e) => {
+      setDescription(e.target.value);
+    }
 
   return (
     <Fragment>
@@ -83,7 +108,7 @@ function App() {
             onClick={handleMapClick}
             mapContainerStyle={{ width: "100%", height: "80vh" }}
             >
-              {markers.map(({ id, name, position }) => (
+              {markers.map(({ id, name, description, position }) => (
                 <MarkerF
                 key={id}
                 position={position}
@@ -93,7 +118,8 @@ function App() {
                   {activeMarker === id ? (
                     <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
                       <div className="text-black">
-                        <p>{name}</p>
+                        <h3>{name}</h3>
+                        <p>{description}</p>
                       </div>
                     </InfoWindowF>
                   ) : null}
@@ -102,7 +128,11 @@ function App() {
             </GoogleMap>
           ) : null}
         </div>
-        <IncidentForm />
+        <IncidentForm 
+          newMarker={newMarker == null}
+          setTitle={addTitle}
+          setDescription={addDesc}
+          handleSave={handleSaveMarker}/>
         </div>
       </div>
     </Fragment>
