@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { AddMarker } from './AddMarker';
 import SafetyShark from "../assets/SafetyShark.png";
 
-function SideBar( {handleAddMarker, addMarkerMode, incidentList} ) {
+function SideBar( {handleAddMarker, addMarkerMode, incidentList, onIncidentClick} ) {
 
   return (
     <>
@@ -10,15 +10,17 @@ function SideBar( {handleAddMarker, addMarkerMode, incidentList} ) {
 
         <img src={SafetyShark} className="inline-block pb-8"/>
         <AddMarker onAddMarker = {handleAddMarker} addMarkerMode={addMarkerMode}/>
-        <div className="text-left bg-slate-200 my-4 p-2 rounded-lg">
+        <div className="text-left bg-slate-200 my-4 max-h-64 overflow-auto no-scrollbar p-2 rounded-lg">
           <h2 className="text-black text-xl font-bold text-center">Recent Alerts</h2>
           { incidentList ? (
-            incidentList.map(({name, description, time, date}) =>
+            incidentList.map((incident) =>
               (
-                <div className="text-black text-sm bg-slate-300 rounded-lg my-2 p-2">
-                  <p className="font-bold">{name}</p>
-                  <p>{description}</p>
-                  <p>Posted: {time} {date}</p>
+                <div className="cursor-pointer hover:bg-slate-400 transition-colors text-black text-sm bg-slate-300 rounded-lg my-2 p-2"
+                  key={incident.id}
+                  onClick={() => onIncidentClick(incident)}>
+                  <p className="font-bold">{incident.name}</p>
+                  <p>{incident.description}</p>
+                  <p>Posted: {incident.time} {incident.date}</p>
                 </div>
               )
             )
