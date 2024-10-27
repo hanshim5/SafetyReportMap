@@ -67,13 +67,12 @@ function App() {
 
   return (
     <Fragment>
-      <div className="container">
+      <div className="container max-w-full">
         <div className="flex items-center justify-center">
 
         <SideBar handleAddMarker={toggleAddMarkerMode}/>
-        {/* <AddMarker onAddMarker = {toggleAddMarkerMode} /> */}
         <div style={{ width: "100%" }}>
-        <h1 className="text-center">Map of Safety Report Markers</h1>
+        <h1 className="text-center p-4">Map of Safety Report Markers</h1>
           {isLoaded ? (
             <GoogleMap
             center={{ lat: 33.7869, lng: -118.1130 }}
