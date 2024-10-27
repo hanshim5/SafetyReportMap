@@ -11,33 +11,19 @@ import "./App.css";
 import SideBar from "./components/SideBar";
 import IncidentForm from "./components/IncidentForm";
 import FormTutorial from "./components/FormTutorial";
-import SafetyShark from "./assets/SafetyShark.png";
 
 
+// Initial markers to display on the map
 const initialMarkers = [
   {
     id: 1,
-    name: "CSULB campus",
-    position: { lat: 33.78398549715631, lng: -118.11409057458485},
+    name: "Hit and run near Horn Center!",
+    position: { lat: 33.78398549715631, lng: -118.11409057458485 },
     date: "2024-10-26",
     time: "10:30 AM",
   },
-  {
-    id: 2,
-    name: "CSULB ",
-    position: { lat: 33.78606527392616, lng: -118.1091033195572 },
-    date: "2024-10-26",
-    time: "10:45 AM",
-  },
-
-  {
-    id: 3,
-    name: "Horn Center",
-    position: { lat: 33.78338772161907, lng: -118.1140407489438 },
-    date: "2024-10-26",
-    time: "11:00 AM",
-  }
 ];
+
 
 function App() {
   const { isLoaded } = useLoadScript({
@@ -45,6 +31,7 @@ function App() {
   });
 
   const [markers, setMarkers] = useState(initialMarkers); // used to manage markers + add new ones
+  const [selectedMarker, setSelectedMarker] = useState(null);
   const [activeMarker, setActiveMarker] = useState(null); // tracking active marker for showing infoWindow
   const [addMarkerMode, setAddMarkerMode] = useState(false); // control add marker mode
   const [newMarker, setNewMarker] = useState(null); // Stores new marker position before saving
@@ -121,13 +108,18 @@ function App() {
       setDescription(e.target.value);
     }
 
+    const handleIncidentClick = (incident) => {
+      setSelectedMarker(incident);
+    }
+
   return (
     <Fragment>
       <div className="container max-w-screen max-h-screen">
         <div className="flex items-center justify-center">
         <SideBar handleAddMarker={toggleAddMarkerMode} 
         addMarkerMode={addMarkerMode} 
-        incidentList={markers}/>
+        incidentList={markers}
+        onIncidentClick={handleIncidentClick}/>
         <div style={{ width: "100%", height: "100vh" }}>
         {/* <h1 className="text-center text-4xl pb-8">Map of Safety Report Markers</h1> */}
         {/* <img src={SafetyShark} className="inline-block pb-4 h-24"/> */}
@@ -144,25 +136,24 @@ function App() {
                 <MarkerF
                 key={id}
                 position={position}
-                onClick={() => handleActiveMarker(id)}
-                
-                >
-                  {activeMarker === id ? (
-                    <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
+                onClick={() => handleIncidentClick({ id, name, description, date, time, position })}/>))}
+                  { selectedMarker && (
+                    <InfoWindowF 
+                    position={selectedMarker.position}
+                    onCloseClick={() => setActiveMarker(null)}>
                       <div className="text-black text-left">
-                        <h3 className="font-bold">{name}</h3>
-                        <p>{description}</p>
-                        <p>Posted Date: {date}</p>
-                        <p>Posted Time: {time}</p>
+                        <h3 className="font-bold">{selectedMarker.name}</h3>
+                        <p>{selectedMarker.description}</p>
+                        <p>Posted Date: {selectedMarker.date}</p>
+                        <p>Posted Time: {selectedMarker.time}</p>
                       </div>
                     </InfoWindowF>
-                  ) : null}
-                </MarkerF>
-              ))}
+                  )}
+              
             </GoogleMap>
           ) : null}
         </div>
-        <div className="max-h-full fixed">
+        <div className="max-h-full fixed transition-transform">
         { newMarker ? (
           <IncidentForm 
           newMarker={newMarker == null}

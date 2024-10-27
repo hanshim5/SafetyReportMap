@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
 import { AddMarker } from './AddMarker';
-import SafetyShark from "../assets/SafetyShark.png";
+import SafetyShark from "../assets/RedYellowLogo.png";
 
 function SideBar( {handleAddMarker, addMarkerMode, incidentList, onIncidentClick} ) {
 
@@ -10,12 +9,12 @@ function SideBar( {handleAddMarker, addMarkerMode, incidentList, onIncidentClick
 
         <img src={SafetyShark} className="inline-block pb-8"/>
         <AddMarker onAddMarker = {handleAddMarker} addMarkerMode={addMarkerMode}/>
-        <div className="text-left bg-slate-200 my-4 max-h-64 overflow-auto no-scrollbar p-2 rounded-lg">
-          <h2 className="text-black text-xl font-bold text-center">Recent Alerts</h2>
+        <div className="text-left bg-white bg-opacity-10 my-4 max-h-64 overflow-auto no-scrollbar p-2 rounded-lg">
+          <h2 className="text-xl font-bold text-center">Recent Alerts</h2>
           { incidentList ? (
             incidentList.map((incident) =>
               (
-                <div className="cursor-pointer hover:bg-slate-400 transition-colors text-black text-sm bg-slate-300 rounded-lg my-2 p-2"
+                <div className="cursor-pointer hover:bg-opacity-20 transition-colors text-sm bg-white bg-opacity-10 rounded-md my-2 p-2"
                   key={incident.id}
                   onClick={() => onIncidentClick(incident)}>
                   <p className="font-bold">{incident.name}</p>
@@ -29,7 +28,7 @@ function SideBar( {handleAddMarker, addMarkerMode, incidentList, onIncidentClick
           }
 
         </div>
-        <div className="text-black bg-slate-200 p-2 rounded-lg">
+        <div className="bg-white bg-opacity-10 p-2 rounded-lg">
           {/* List of available resources, i.e. police number, how to get an escort, etc. */}
           <h2 className="text-xl font-bold">Resources</h2>
           {/* police escort service */}
