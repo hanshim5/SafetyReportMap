@@ -16,8 +16,8 @@ function IncidentForm({setTitle, setDescription, handleSave}) {
         <input type='text'
           placeholder="Enter incident title"
           onChange={setTitle}
-          className="text-black bg-slate-100 w-full p-2"/>
-        <hr/>
+          className="text-black bg-slate-100 w-full p-2 rounded-lg my-2"/>
+
         <label className='text-black'>
           Description 
           <textarea name="postContent" 

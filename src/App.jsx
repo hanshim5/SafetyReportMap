@@ -20,17 +20,23 @@ const initialMarkers = [
     id: 1,
     name: "CSULB campus",
     position: { lat: 33.78398549715631, lng: -118.11409057458485},
+    date: "2024-10-26",
+    time: "10:30 AM",
   },
   {
     id: 2,
     name: "CSULB ",
     position: { lat: 33.78606527392616, lng: -118.1091033195572 },
+    date: "2024-10-26",
+    time: "10:45 AM",
   },
 
   {
     id: 3,
     name: "ditto",
     position: { lat: 33.78338772161907, lng: -118.1140407489438 },
+    date: "2024-10-26",
+    time: "11:00 AM",
   }
 ];
 
@@ -47,6 +53,7 @@ function App() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
+
   // Handles map clicks to set a new marker's position
   const handleMapClick = (event) => {
     if (!addMarkerMode) return; // Only add marker when in 'add marker' mode
@@ -56,10 +63,16 @@ function App() {
     setAddMarkerMode(false); // Exit 'add marker' mode after selecting position
   };
 
+
   // Saves the new marker with title and description inputs
   const handleSaveMarker = (e) => {
     if (newMarker && title && description) {
       e.preventDefault();
+
+    // Handles date and time when parker was added
+    const currDate = new Date().toLocaleDateString();
+    const currTime = new Date().toLocaleTimeString();
+
       setMarkers((prevMarkers) => [
         ...prevMarkers,
         {
@@ -67,6 +80,8 @@ function App() {
           name: title,
           description: description,
           position: newMarker.position,
+          date: currDate,
+          time: currTime,
         },
       ]);
       setNewMarker((newMarker) => null); // Reset new marker state after saving
@@ -98,7 +113,6 @@ function App() {
     <Fragment>
       <div className="container max-w-full">
         <div className="flex items-center justify-center">
-
         <SideBar handleAddMarker={toggleAddMarkerMode} addMarkerMode={addMarkerMode}/>
         <div style={{ width: "100%" }}>
         <h1 className="text-center text-4xl pb-8">Map of Safety Report Markers</h1>
@@ -109,7 +123,7 @@ function App() {
             onClick={handleMapClick}
             mapContainerStyle={{ width: "100%", height: "80vh" }}
             >
-              {markers.map(({ id, name, description, position }) => (
+              {markers.map(({ id, name, description, position, date, time }) => (
                 <MarkerF
                 key={id}
                 position={position}
@@ -121,6 +135,8 @@ function App() {
                       <div className="text-black text-left">
                         <h3 className="font-bold">{name}</h3>
                         <p>{description}</p>
+                        <p>Posted Date: {date}</p>
+                        <p>Posted Time: {time}</p>
                       </div>
                     </InfoWindowF>
                   ) : null}
@@ -138,9 +154,8 @@ function App() {
           handleSave={handleSaveMarker}/>) :
           (
             <FormTutorial />
-          )
-        }
-
+              )
+            }
         </div>
       </div>
     </Fragment>
