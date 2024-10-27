@@ -38,6 +38,7 @@ function App() {
   // states for Marker information
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [image, setImage] = useState(null);
 
   // handling map on init load
   const mapsRef = useRef(null);
@@ -81,6 +82,7 @@ function App() {
           position: newMarker.position,
           date: currDate,
           time: currTime,
+          image: image,
         },
       ]);
       setNewMarker((newMarker) => null); // Reset new marker state after saving
@@ -100,11 +102,15 @@ function App() {
 
     const addDesc = (e) => {
       setDescription(e.target.value);
+    };
+
+    const addImage = (e) => {
+      setImage(e.target.files[0]);
     }
 
     const handleIncidentClick = (incident) => {
       setSelectedMarker(incident);
-    }
+    };
 
   return (
     <Fragment>
@@ -124,11 +130,11 @@ function App() {
             onClick={handleMapClick}
             mapContainerStyle={{ width: "100%", height: "100vh" }}
             >
-              {markers.map(({ id, name, description, position, date, time }) => (
+              {markers.map(({ id, name, description, position, date, time, image }) => (
                 <MarkerF
                 key={id}
                 position={position}
-                onClick={() => handleIncidentClick({ id, name, description, date, time, position })}/>))}
+                onClick={() => handleIncidentClick({ id, name, description, date, time, position, image })}/>))}
                   { selectedMarker && (
                     <InfoWindowF 
                     position={selectedMarker.position}
@@ -142,6 +148,9 @@ function App() {
                         {/* Display latitude and longitude */}
                         <p>Latitude: {selectedMarker.position.lat.toFixed(6)}</p>
                         <p>Longitude: {selectedMarker.position.lng.toFixed(6)}</p>
+                        { selectedMarker.image && (
+                          <img width={"100px"} src={URL.createObjectURL(selectedMarker.image)}/>
+                        )}
                       </div>
                     </InfoWindowF>
                   )}
@@ -156,6 +165,7 @@ function App() {
           setNewMarker={() => (setNewMarker(null))}
           setTitle={addTitle}
           setDescription={addDesc}
+          setImage={addImage}
           handleSave={handleSaveMarker}/>) :
           (
             <FormTutorial />

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function IncidentForm({setTitle, setDescription, handleSave}) {
+function IncidentForm({setTitle, setDescription, setImage, handleSave}) {
   return (
     <>
 
@@ -29,6 +29,8 @@ function IncidentForm({setTitle, setDescription, handleSave}) {
               className= "bg-slate-100 bg-opacity-20 w-full h-48 p-2 rounded-md my-2"/>
           </label>
         </div>
+
+        <input className="mb-4" type="file" onChange={setImage}></input>
         
         <button title='Submit' className='bg-[#467BAA] hover:bg-white hover:text-[#467BAA] transition-colors'type="submit">
           Submit
