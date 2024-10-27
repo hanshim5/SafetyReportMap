@@ -1,12 +1,13 @@
 import { AddMarker } from './AddMarker';
 import SafetyShark from "../assets/RedYellowLogo.png";
+import MarkerLogo from "../assets/markerLogo.png";
 
 function SideBar( {handleAddMarker, addMarkerMode, incidentList, onIncidentClick} ) {
 
   return (
     <>
       <div className="w-1/4 h-3/4 flex flex-col rounded-lg p-8">
-
+        <img src={MarkerLogo} className="w-14 self-center inline-block pb-8"/>
         <img src={SafetyShark} className="inline-block pb-8"/>
         <AddMarker onAddMarker = {handleAddMarker} addMarkerMode={addMarkerMode}/>
         <div className="text-left bg-white bg-opacity-10 my-4 max-h-64 overflow-auto no-scrollbar p-2 rounded-lg">
